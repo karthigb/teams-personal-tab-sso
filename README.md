@@ -7,6 +7,8 @@ Tabs are Teams-aware webpages embedded in Microsoft Teams. Personal tabs are sco
 
 -  [M365 developer account](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/prepare-your-o365-tenant) or access to a Teams account with the appropriate permissions to install an app.
 
+- [Create an Azure App registration to handle authentication](https://aka.ms/teams-toolkit-sso-appreg)
+
 ## Build and Run
 
 In the project directory, execute:
