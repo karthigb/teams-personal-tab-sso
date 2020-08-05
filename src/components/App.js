@@ -19,27 +19,26 @@ class App extends React.Component {
 
   render() {
 
-      // Set app routings that don't require microsoft Teams
-      // SDK functionality.  Show an error if trying to access the
-      // Home page.
+      //Pages that require Teams SDK functionality won't work if they're accessed from outside
+      //the Teams client. Show an error if trying to access tab home page from a browser session.
+      let tabRoute;
+
       if (window.parent === window.self) {
-        return (
-          <Router>
-            <Route exact path="/privacy" component={Privacy} />
-            <Route exact path="/termsofuse" component={TermsOfUse} />
-            <Route exact path="/tab" component={TeamsHostError} />
-            <Route exact path="/auth-start" component={ConsentPopup} />
-            <Route exact path="/auth-end" component={ClosePopup} />
-          </Router>        
-        );
+        tabRoute = <Route exact path="/tab" component={TeamsHostError}/>
       } else {
-        // Display the app home page hosted in Teams
-        return (
-          <Router>
-            <Route exact path="/tab" component={Tab}/>
-          </Router>
-        );
+        tabRoute = <Route exact path="/tab" component={Tab}/>
       }
+
+      return (
+        <Router>
+          <Route exact path="/privacy" component={Privacy} />
+          <Route exact path="/termsofuse" component={TermsOfUse} />
+          <Route exact path="/auth-start" component={ConsentPopup} />
+          <Route exact path="/auth-end" component={ClosePopup} />
+          {tabRoute}
+        </Router>        
+      );
+
     }
 }
 

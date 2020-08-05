@@ -50,7 +50,7 @@ app.get('/getGraphAccessToken', async (req,res) => {
         if( (data.error === 'invalid_grant') || (data.error === 'interaction_required') ) {
             //This is expected if it's the user's first time running the app ( user must consent ) or the admin requires MFA
             console.log("User must consent or perform MFA");
-            res.status(403).json({ error: 'invalid_grant' }); //This error triggers the consent flow in the client.
+            res.status(403).json({ error: 'consent_required' }); //This error triggers the consent flow in the client.
         } else {
             //Unknown error
             console.log('Could not exchange access token for unknown reasons.');

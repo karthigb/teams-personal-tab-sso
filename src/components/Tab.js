@@ -37,7 +37,7 @@ class Tab extends React.Component {
   //Learn more: https://reactjs.org/docs/react-component.html#componentdidmount
   componentDidMount(){
     // Initialize the Microsoft Teams SDK
-    microsoftTeams.initialize(window);
+    microsoftTeams.initialize();
 
     // Get the user context from Teams and set it in the state
     microsoftTeams.getContext((context, error) => {
@@ -70,8 +70,8 @@ class Tab extends React.Component {
     let response = await fetch('https://yyz.ngrok.io/getGraphAccessToken?ssoToken='+token).catch(this.unhandledFetchError); //This calls getGraphAccessToken route in /api-server/app.js
     let data = await response.json().catch(this.unhandledFetchError);
 
-    if(!response.ok && data.error==='invalid_grant'){
-      //An invalid_grant error means it's the first time a user is logging into to the app, so they must consent to sharing their Graph data with the app.
+    if(!response.ok && data.error==='consent_required'){
+      //A consent_required error means it's the first time a user is logging into to the app, so they must consent to sharing their Graph data with the app.
       //They may also see this error if MFA is required. Proceed to show the consent dialogue.
       this.setState({consentRequired:true}); //This displays the consent button.
     } else if (!response.ok) {
@@ -84,7 +84,7 @@ class Tab extends React.Component {
     }
   }
 
-  //Show a popup dialogue prompting the user to consent to the required API permissions
+  //Show a popup dialogue prompting the user to consent to the required API permissions. This opens ConsentPopup.js.
   //Learn more: https://docs.microsoft.com/en-us/microsoftteams/platform/tabs/how-to/authentication/auth-tab-aad#initiate-authentication-flow
   showConsentDialog(){ 
 
