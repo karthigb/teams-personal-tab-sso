@@ -4,8 +4,8 @@ const express = require('express');
 const jwt_decode = require('jwt-decode');
 
 const app = express();
-const clientId = 'e780aa33-4b28-41ee-ba3c-0e4320ac955e';
-const clientSecret = '_.4uTC237_2sOkzrVY1gygZ4JoXUF27-n8';
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET';
 const graphScopes = 'https://graph.microsoft.com/User.Read';
 
 let handleQueryError = function (err) {
